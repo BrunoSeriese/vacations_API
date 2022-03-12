@@ -1,42 +1,23 @@
 package nl.hsleiden.controller;
 
+import lombok.RequiredArgsConstructor;
 import nl.hsleiden.model.User;
-import nl.hsleiden.model.Vacation;
 import nl.hsleiden.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/user")
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class UserController {
-
     private final UserService userService;
 
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-
-    @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
-    }
-
-    @PostMapping
-    public void registerNewVacation(@RequestBody User user) {
-        userService.addUser(user);
-    }
-
-   @PostMapping({"/login"})
-   @ResponseStatus(HttpStatus.ACCEPTED)
-   @ResponseBody
-   public String login(@RequestBody User user) throws Exception {
-
-      return "Hello FUCKING WORK";
+    @GetMapping("/users")
+    public ResponseEntity<List<User>>getUsers(){
+        return ResponseEntity.ok().body(userService.getUsers());
     }
 }
