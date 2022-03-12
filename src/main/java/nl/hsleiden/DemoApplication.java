@@ -1,9 +1,12 @@
 package nl.hsleiden;
 
+import nl.hsleiden.model.Role;
+import nl.hsleiden.model.User;
+import nl.hsleiden.service.UserService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,15 +19,18 @@ public class DemoApplication {
 	}
 
 
-	@GetMapping(value = "/test")
-	public String hello2(){
-		return "second hello";
+	CommandLineRunner run(UserService userService){
+		return args -> {
+//		userService.saveRole(new Role("ROLE_USER"));
+//		userService.saveRole(new Role("ROLE_ADMIN"));
+//
+//		userService.saveUser(new User("bruno@notmail.com","test123","pretraket"));
+//
+//		userService.addRoleToUser("pretraket","ROLE_ADMIN");
+		};
 	}
 
-	@Bean public BCryptPasswordEncoder bCryptPasswordEncoder(){
 
-		return new BCryptPasswordEncoder();
-	}
 
 
 
