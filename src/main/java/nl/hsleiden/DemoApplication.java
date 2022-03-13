@@ -20,15 +20,10 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-
+	@Bean
 	CommandLineRunner run(UserService userService){
 		return args -> {
-//		userService.saveRole(new Role("ROLE_USER"));
-//		userService.saveRole(new Role("ROLE_ADMIN"));
-//
-//		userService.saveUser(new User("bruno@notmail.com","test123","pretraket"));
-//
-//		userService.addRoleToUser("pretraket","ROLE_ADMIN");
+
 		};
 	}
 
