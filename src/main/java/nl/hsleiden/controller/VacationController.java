@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/vacations")
+@RequestMapping(path = "api/v1")
 public class VacationController {
 
     private final VacationService vacationService;
@@ -22,7 +22,7 @@ public class VacationController {
     }
 
 
-    @GetMapping
+    @GetMapping("vacations")
     public List<Vacation> getVacations() {
         return vacationService.getVacations();
     }
