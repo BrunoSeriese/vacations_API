@@ -27,18 +27,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
-
+    //,"/api/refreshtoken/?**","api/vacations/?**","api/vacations"
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         AuthFilter authFilter = new AuthFilter(authenticationManagerBean());
         authFilter.setFilterProcessesUrl("/api/login");
+        http.cors().disable();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**","/api/refreshtoken/?**").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/api/v1/users").hasAnyAuthority("ROLE_ADMIN");
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers("/api/login/**").permitAll();
+        http.authorizeRequests().antMatchers("api/signup/**").permitAll();
+        http.authorizeRequests().antMatchers(GET,"/api/secure/users").hasAnyAuthority("ROLE_ADMIN");
+//        http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(authFilter);
-        http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.antMatcher("/api/secure/**").authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

@@ -11,10 +11,14 @@ import java.util.List;
 @Configuration
 public class VacationConfig {
 
+
+
     @Bean
     CommandLineRunner commandLineRunner(VacationRepository vacationRepository) {
         return args -> {
-
+            if (vacationRepository.findVacationByCity("Sofia").isPresent()){
+                return;
+            }
             Vacation sofia  = new Vacation(
                     "Bulgaria",
                     300,

@@ -20,12 +20,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner run(UserService userService){
-		return args -> {
 
-		};
-	}
 
 	@Bean
 	PasswordEncoder passwordEncoder(){
