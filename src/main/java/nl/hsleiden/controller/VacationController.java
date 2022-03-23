@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "/api")
 public class VacationController {
 
@@ -33,7 +34,8 @@ public class VacationController {
         vacationService.addNewVacation(vacation);
     }
 
-    @DeleteMapping(path = "{vacationId}")
+    @CrossOrigin
+    @DeleteMapping(path = "secure/{vacationId}")
     public void deleteVacation(@PathVariable("vacationId") Long vacationId) {
         vacationService.deleteStudent(vacationId);
     }

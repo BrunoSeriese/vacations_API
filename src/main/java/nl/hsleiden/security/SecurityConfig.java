@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration @EnableWebSecurity @RequiredArgsConstructor
@@ -30,21 +31,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //,"/api/refreshtoken/?**","api/vacations/?**","api/vacations"
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         AuthFilter authFilter = new AuthFilter(authenticationManagerBean());
         authFilter.setFilterProcessesUrl("/api/login");
-        http.cors().disable();
+        http.cors();
         http.csrf().disable();
+        http.authorizeRequests().antMatchers(POST,"/api/login").permitAll();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
+        http.authorizeRequests().antMatchers("/api/vacations/**").permitAll();
         http.authorizeRequests().antMatchers("/api/login/**").permitAll();
         http.authorizeRequests().antMatchers("api/signup/**").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/api/secure/users").hasAnyAuthority("ROLE_ADMIN");
-//        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers(GET,"/api/users").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(authFilter);
-        http.antMatcher("/api/secure/**").authorizeRequests()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new AuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
     }
 
     @Bean
