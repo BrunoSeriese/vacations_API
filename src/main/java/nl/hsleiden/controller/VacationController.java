@@ -35,7 +35,7 @@ public class VacationController {
     }
 
     @CrossOrigin
-    @DeleteMapping(path = "secure/{vacationId}")
+    @DeleteMapping(path = "vacation/{vacationId}")
     public void deleteVacation(@PathVariable("vacationId") Long vacationId) {
         vacationService.deleteStudent(vacationId);
     }

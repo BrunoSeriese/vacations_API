@@ -41,12 +41,14 @@ public class DemoApplication {
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
 		final CorsConfiguration config = new CorsConfiguration();
+		config.addAllowedOrigin("*");
 		config.addAllowedMethod("GET");
 		config.addAllowedMethod("PUT");
 		config.addAllowedMethod("POST");
+		config.addAllowedMethod("DELETE");
 		config.addAllowedHeader("*");
 		config.setAllowedOrigins(Collections.singletonList("*"));
-		config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept","Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me"));
+		config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept","Authorization","Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me"));
 		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
 		source.registerCorsConfiguration("/**", config);
