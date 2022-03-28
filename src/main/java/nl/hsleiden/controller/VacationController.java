@@ -29,7 +29,7 @@ public class VacationController {
     }
 
 
-    @PostMapping
+    @PostMapping("/vacation/add")
     public void registerNewVacation(@RequestBody Vacation vacation) {
         vacationService.addNewVacation(vacation);
     }

@@ -45,9 +45,11 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+    public void saveUser(@RequestBody User user) {
+        System.out.println("IN SIGNUP");
+//        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
+//        return ResponseEntity.created(uri).body(
+      userService.saveUser(user);
     }
 
     @PostMapping("/role/save")
