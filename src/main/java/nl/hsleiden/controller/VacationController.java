@@ -28,6 +28,11 @@ public class VacationController {
         return vacationService.getVacations();
     }
 
+    @CrossOrigin
+    @GetMapping(path = "vacation/{vacationId}")
+    public Vacation getVacation(@PathVariable("vacationId") Long vacationId) {
+       return vacationService.getVacation(vacationId);
+    }
 
     @PostMapping("/vacation/add")
     public void registerNewVacation(@RequestBody Vacation vacation) {

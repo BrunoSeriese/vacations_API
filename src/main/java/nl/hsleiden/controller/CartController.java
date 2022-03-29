@@ -25,12 +25,12 @@ public class CartController {
         this.userService = userService;
     }
 
-
+    @CrossOrigin
     @GetMapping("/carts")
     public List<Cart> getVacations() {
         return cartService.getCarts();
     }
-
+    @CrossOrigin
     @GetMapping("/carts/{userId}")
     public List<Cart> getCartsByUser(@PathVariable("userId") Integer userId){
         return cartService.getCart(userId);

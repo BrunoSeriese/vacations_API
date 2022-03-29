@@ -32,6 +32,11 @@ public class VacationService {
         }
         vacationRepository.save(vacation);
     }
+    public Vacation getVacation(Long id){
+        return vacationRepository.findVacationById(id);
+    }
+
+
 
     public void deleteStudent(Long vacationId) {
         boolean exists = vacationRepository.existsById(vacationId);
