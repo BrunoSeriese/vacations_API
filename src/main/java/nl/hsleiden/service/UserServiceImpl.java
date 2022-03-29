@@ -2,8 +2,10 @@ package nl.hsleiden.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nl.hsleiden.DAO.repository.CartRepository;
 import nl.hsleiden.DAO.repository.RoleRepository;
 import nl.hsleiden.DAO.repository.UserRepository;
+import nl.hsleiden.model.Cart;
 import nl.hsleiden.model.Role;
 import nl.hsleiden.model.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
     @Override
     public User saveUser(User user) {
@@ -35,6 +38,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Role saveRole(Role role) {
         log.info("Saving new role {} to the database", role.getName());
         return roleRepository.save(role);
+    }
+
+    @Override
+    public Cart saveCartItem(Cart cartItem) {
+        log.info("Saving new cart {} to the database", cartItem.getId());
+        return cartRepository.save(cartItem);
+    }
+    public void addCartItemToUser(String username, int cartID){
+        log.info("Adding cart {} to user {}", cartID,username);
+        User user = userRepository.findByUsername(username);
+        Cart cart = cartRepository.findById(cartID);
+        user.getCartItems().add(cart);
+
     }
 
     @Override

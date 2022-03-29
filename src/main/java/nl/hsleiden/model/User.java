@@ -35,6 +35,9 @@ public class User {
     @ManyToMany(fetch =  EAGER)
     private Collection<Role> roles = new ArrayList<>();
 
+    @ManyToMany
+    private Collection<Cart> cartItems = new ArrayList<>();
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -57,6 +60,13 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+    public Collection<Cart> getCartItems() {
+        return this.cartItems;
+    }
+
+    public void setCartItems(Collection<Cart> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public User(String email, String password, String username) {

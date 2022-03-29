@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import nl.hsleiden.model.Cart;
 import nl.hsleiden.model.Role;
 import nl.hsleiden.model.User;
 import nl.hsleiden.service.UserService;
@@ -44,6 +45,13 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
+    @CrossOrigin
+    @GetMapping(path = "/user/{userName}")
+    public int getUser(@PathVariable("userName") String userName) {
+        return (int) userService.getUser(userName).getId();
+    }
+
+
     @PostMapping("/signup")
     public void saveUser(@RequestBody User user) {
         System.out.println("IN SIGNUP");
@@ -56,6 +64,11 @@ public class UserController {
     public ResponseEntity<Role> saveRole(@RequestBody Role role) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/role/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveRole(role));
+    }
+    @PostMapping("/cart/item")
+    public void saveCartItem(@RequestBody Cart cartItem) {
+
+       userService.saveCartItem(cartItem);
     }
 
     @PostMapping("/role/grantroletouser")
