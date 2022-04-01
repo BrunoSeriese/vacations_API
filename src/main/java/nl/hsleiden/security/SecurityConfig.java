@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
-    //,"/api/refreshtoken/?**","api/vacations/?**","api/vacations"
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
