@@ -8,6 +8,7 @@ import nl.hsleiden.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -30,19 +31,27 @@ public class CartController {
     public List<Cart> getVacations() {
         return cartService.getCarts();
     }
+
     @CrossOrigin
     @GetMapping("/carts/{userId}")
-    public List<Cart> getCartsByUser(@PathVariable("userId") Integer userId){
+    public List<Cart> getCartsByUser(@PathVariable("userId") Integer userId) {
         return cartService.getCart(userId);
     }
-
 
 
     @CrossOrigin
     @DeleteMapping(path = "cart/{cartId}")
     public void deleteVacation(@PathVariable("cartId") int cartId) {
-       cartService.deleteCart(cartId);
+        cartService.deleteCart(cartId);
     }
+
+    @Transactional
+    @CrossOrigin
+    @DeleteMapping(path = "/carts/{userId}")
+    public void deleteCarts(@PathVariable("userId") int userId) {
+        cartService.deleteCarts(userId);
+    }
+
 
 
 }

@@ -9,4 +9,5 @@ public interface CartService {
     List<Cart> getCart(long userId);
     List<Cart> getCarts();
      void deleteCart(long cartId);
+     void deleteCarts(long userId);
 }
